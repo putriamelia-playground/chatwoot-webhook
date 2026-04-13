@@ -21,7 +21,7 @@ foreach ($data as &$item) {
         $$ch = curl_init($url);
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
             "Content-Type: application/json",
-            "api_access_token: TOKEN"
+            "api_access_token: 3pPrUBv65AW8SiC5oyT9fWPY"
         ]);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
