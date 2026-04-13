@@ -10,7 +10,7 @@ foreach ($data as &$item) {
 
         $conversation_id = $item['conversation_id'];
 
-        $url = "$CHATWOOT_API/accounts/$ACCOUNT_ID/conversations/$conversationId/messages";
+        $url = "$CHATWOOT_API/accounts/$ACCOUNT_ID/conversations/$conversation_id/messages";
 
 
         $payload = [
@@ -18,14 +18,19 @@ foreach ($data as &$item) {
             "message_type" => "outgoing"
         ];
 
-        $ch = curl_init($url);
+        $$ch = curl_init($url);
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
             "Content-Type: application/json",
-            "api_access_token: 3pPrUBv65AW8SiC5oyT9fWPY"
+            "api_access_token: TOKEN"
         ]);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_exec($ch);
+
+        $response = curl_exec($ch);
+        $error = curl_error($ch);
+
+        file_put_contents('/app/debug.log', $response . "\n" . $error . "\n", FILE_APPEND);
+
         curl_close($ch);
 
         $item['replied'] = true;
